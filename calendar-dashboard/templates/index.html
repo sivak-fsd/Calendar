@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>Calendar Dashboard</h1>
+        </header>
+        <main>
+            <div class="calendar-container">
+                <div class="calendar-nav">
+                    <button id="prev-month">&laquo; Prev</button>
+                    <h2 id="month-title"></h2>
+                    <button id="next-month">Next &raquo;</button>
+                </div>
+                <table class="calendar">
+                    <thead>
+                        <tr>
+                            <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th>
+                            <th>Fri</th><th>Sat</th><th>Sun</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script>
+        let currentYear = {{ year }};
+        let currentMonth = {{ month }};
+
+        async function loadCalendar(year, month) {
+            const res = await fetch(`/api/calendar/${year}/${month}`);
+            const data = await res.json();
+            document.getElementById("month-title").textContent = `${data.month_name} ${data.year}`;
+            const tbody = document.getElementById("calendar-body");
+            tbody.innerHTML = "";
+            data.weeks.forEach(week => {
+                const tr = document.createElement("tr");
+                week.forEach(day => {
+                    const td = document.createElement("td");
+                    if (day !== 0) {
+                        td.textContent = day;
+                        const cellDate = `${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+                        if (cellDate === data.today) td.classList.add("today");
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.getElementById("prev-month").addEventListener("click", () => {
+            currentMonth--;
+            if (currentMonth < 1) { currentMonth = 12; currentYear--; }
+            loadCalendar(currentYear, currentMonth);
+        });
+
+        document.getElementById("next-month").addEventListener("click", () => {
+            currentMonth++;
+            if (currentMonth > 12) { currentMonth = 1; currentYear++; }
+            loadCalendar(currentYear, currentMonth);
+        });
+
+        loadCalendar(currentYear, currentMonth);
+    </script>
+</body>
+</html>

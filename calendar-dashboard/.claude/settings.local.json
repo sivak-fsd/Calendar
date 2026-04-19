@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(winget --version)",
+      "Bash(choco --version)",
+      "Bash(choco install *)",
+      "Bash(gh --version)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Read(//c/Program Files/**)",
+      "Read(//c/ProgramData/chocolatey/**)"
+    ]
+  }
+}

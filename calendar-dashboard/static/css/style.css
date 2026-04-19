@@ -1,0 +1,80 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f0f2f5;
+    color: #333;
+}
+
+.dashboard {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    color: #1a1a2e;
+}
+
+.calendar-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 24px;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.calendar-nav h2 { font-size: 1.2rem; }
+
+.calendar-nav button {
+    background: #4f46e5;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.calendar-nav button:hover { background: #4338ca; }
+
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar th, .calendar td {
+    text-align: center;
+    padding: 10px;
+    width: 14.28%;
+}
+
+.calendar th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #888;
+}
+
+.calendar td {
+    border-radius: 6px;
+    cursor: default;
+    font-size: 0.95rem;
+}
+
+.calendar td:hover:not(:empty) { background: #f0effe; }
+
+.calendar td.today {
+    background: #4f46e5;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+}
